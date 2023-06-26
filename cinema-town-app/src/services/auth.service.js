@@ -1,25 +1,27 @@
 import axios from "axios";
-import apiInstance from "./apiInstance";
 
 class AuthService {
     constructor() {
-        this.api = apiInstance;
+        this.api = axios.create({
+            baseURL: `${import.meta.env.VITE_API_URL}/auth`,
+        });
     }
 
     signup(data) {
-        return this.api.post("/auth/signup", data);
+        console.log(data)
+        return this.api.post("/signup", data);
     }
 
     login(data) {
-        return this.api.post(`/auth/login`, data);
+        return this.api.post(`/login`, data);
     }
 
     verify(token) {
         return this.api.get(
-            `/auth/verify`
-            // {
-            //   headers: { Authorization: `Bearer ${token}` }
-            // }
+            `verify`,
+            {
+                headers: { Authorization: `Bearer ${token}` }
+            }
         );
     }
 }
