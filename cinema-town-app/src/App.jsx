@@ -4,18 +4,35 @@ import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import { Container } from "react-bootstrap";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import PrivateRoute from "./components/PrivateRoute";
+
 
 function App() {
   return (
-    
-        <Container>
-          <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/movie/:id" element={<MovieDetailsPage />} />
-              <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </Container>
-    
+
+    <Container>
+      <Routes>
+        <Route path="/"
+          element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>} />
+
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
+
+
+        <Route path="/movie/:id"
+          element={
+            <PrivateRoute>
+              <MovieDetailsPage />
+            </PrivateRoute>} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Container>
+
   );
 }
 
